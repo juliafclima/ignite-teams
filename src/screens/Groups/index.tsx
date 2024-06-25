@@ -1,10 +1,15 @@
-import { Text } from "react-native";
 import { Container } from "./styles";
+import { GroupCard } from "@components/GroupCard/index.";
+import { Header } from "@components/Header";
+import { Highlight } from "@components/Highlight";
 
 export function Groups() {
   return (
     <Container>
-      <Text style={{ color: "white" }}>teste</Text>
+      <Header />
+      <Highlight title="Turmas" subtitle="jogue com a sua turma" />
+      
+      <GroupCard title="Galera do Ignite"/>
     </Container>
   );
 }
