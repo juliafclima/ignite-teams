@@ -4,7 +4,7 @@ import { Filter } from "@components/Filter";
 import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { ListEmpty } from "@components/ListEmpty/index.";
 import { PlayerCard } from "@components/PlayerCard";
@@ -14,7 +14,7 @@ import { playersGetByGroup } from "@storage/player/playersGetByGroup";
 import { playersGetByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
 import { PlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { AppError } from "@utils/AppError";
-import { Alert, FlatList } from "react-native";
+import { Alert, FlatList, TextInput } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
 
 type RouteParams = {
@@ -30,6 +30,8 @@ export function Players() {
 
   const { group } = route.params as RouteParams;
 
+  const newPlayerNameInputRef = useRef<TextInput>(null);
+  
   async function handleAddPlayer() {
     if (newPlayerName.trim().length === 0) {
       return Alert.alert(
@@ -45,10 +47,11 @@ export function Players() {
 
     try {
       await playerAddByGroup(newPlayer, group);
-      await fetchPlayersByTeam();
-      await playersGetByGroup(group);
+
+      newPlayerNameInputRef.current?.blur();
 
       setNewPlayerName("");
+      fetchPlayersByTeam();
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert("Nova pessoa", error.message);
@@ -82,10 +85,13 @@ export function Players() {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInputRef}
           placeholder="Nome da pessoa"
           autoCorrect={false}
           value={newPlayerName}
           onChangeText={setNewPlayerName}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
 
         <ButtonIcon icon="control-point" onPress={handleAddPlayer} />
