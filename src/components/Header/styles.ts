@@ -1,4 +1,4 @@
-import { CaretLeft } from "phosphor-react-native";
+import { ArrowCircleLeft } from "phosphor-react-native";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -17,7 +17,7 @@ export const BackButton = styled.TouchableOpacity`
   flex: 1;
 `;
 
-export const BackIcon = styled(CaretLeft).attrs(({ theme }) => ({
+export const BackIcon = styled(ArrowCircleLeft).attrs(({ theme }) => ({
   size: 36,
   color: theme.COLORS.WHITE
 }))``;

@@ -1,20 +1,16 @@
 import { Container, Subtitle, Title } from "./styles";
 
 type HighlightProps = {
-  title: string;
-  subtitle: string;
-}
+  readonly title: string;
+  readonly subtitle: string;
+};
 
 export function Highlight({ title, subtitle }: HighlightProps) {
   return (
     <Container>
-      <Title>
-        {title}
-      </Title>
+      <Title>{title}</Title>
 
-      <Subtitle>
-        {subtitle}
-      </Subtitle>
+      <Subtitle>{subtitle}</Subtitle>
     </Container>
-  )
+  );
 }
