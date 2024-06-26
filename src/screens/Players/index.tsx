@@ -6,6 +6,7 @@ import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { useState } from "react";
 
+import { ListEmpty } from "@components/ListEmpty/index.";
 import { PlayerCard } from "@components/PlayerCard";
 import { FlatList } from "react-native";
 import { Container, Form, HeaderList, NumberOfPlayers } from "./styles";
@@ -49,6 +50,14 @@ export function Players() {
       <FlatList
         data={players}
         keyExtractor={(item) => item}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100 },
+          players.length === 0 && { flex: 1 },
+        ]}
+        ListEmptyComponent={() => (
+          <ListEmpty message="Não há pessoas nesse time" />
+        )}
         renderItem={({ item }) => (
           <PlayerCard name={item} onRemove={() => {}} />
         )}
